@@ -1,4 +1,5 @@
 ﻿using Catalog.Application.Contracts;
+using Mapster;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,16 @@ namespace Catalog.Application.Features.Product.Quaries.GetAllProducts
         public async Task<GetAllProductResponse> Handle(GetAllProductRequest request, CancellationToken cancellationToken)
         {
             var products = await productRepository.GetAll();
-            var responseDto = products.Select(p => new ProductsDisplayResponseAlternate(
-                Id: p.Id,
-                Name: p.Name,
-                Description: p.Description,
-                Price: p.Price,
-                Rating: p.Rating
-                ));
+
+            //var responseDto = products.Select(p => new ProductsDisplayResponseAlternate(
+            //    Id: p.Id,
+            //    Name: p.Name,
+            //    Description: p.Description,
+            //    Price: p.Price,
+            //    Rating: p.Rating
+            //    ));
+
+            var responseDto = products.Adapt<IEnumerable<ProductsDisplayResponseAlternate>>();
 
             if (responseDto != null)
             {

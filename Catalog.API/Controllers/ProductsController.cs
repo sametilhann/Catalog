@@ -1,4 +1,5 @@
-﻿using Catalog.Application.Features.Product.Quaries.GetAllProducts;
+﻿using Catalog.Application.Features.Product.Commands.CreateNewProduct;
+using Catalog.Application.Features.Product.Quaries.GetAllProducts;
 using Catalog.Application.Services;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +31,16 @@ namespace Catalog.API.Controllers
             //var products = await _productService.GetProducts();
  
             return Ok(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateNewProductRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _mediator.Send(request);
+                return Created($"https://mydomain.com/products{response.CreatedProductId}",request);
+            }
+            return BadRequest(ModelState);
         }
     }
 }

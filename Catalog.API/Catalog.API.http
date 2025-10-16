@@ -4,3 +4,4 @@ GET {{Catalog.API_HostAddress}}/api/products
 Accept: application/json
 
 ###
+
