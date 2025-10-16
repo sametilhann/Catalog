@@ -15,7 +15,7 @@ namespace Catalog.Application.Features.Product.Quaries.GetAllProducts
 
         public GetAllProductsRequestHandler(IProductRepository productRepository)
         {
-            this.productRepository = productRepository;
+            this.productRepository = productRepository; 
         }
 
         public async Task<GetAllProductResponse> Handle(GetAllProductRequest request, CancellationToken cancellationToken)
